@@ -15,7 +15,7 @@ from core.models import User, SearchHistory, MusicAction
 from core.services.spotify import get_spotify_search
 from core.models import SearchTypeEnum, ActionEnum
 
-
+# User endpoints
 class UserList(APIView):
     def get(self, request):
         users = User.objects.all()
@@ -30,24 +30,24 @@ class UserList(APIView):
 
 
 class UserDetail(APIView):
-    def get(self, request, pk):
-        user = User.objects.get(pk=pk)
+    def get(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
         return Response(UserSerializer(user).data)
 
-    def put(self, request, pk):
-        user = User.objects.get(pk=pk)
+    def put(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
         serializer = UserSerializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, pk):
-        user = User.objects.get(pk=pk)
+    def delete(self, request, user_id):
+        user = get_object_or_404(User, pk=user_id)
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+# Spotify
 class SpotifySearch(APIView):
     def get(self, request):
         query = request.query_params.get("query")
@@ -89,6 +89,7 @@ class SpotifySearchHistory(APIView):
         return Response(data)
 
 class SpotifyAction(APIView):
+    # TODO: should i create splitted endpoints or how can i make a difference between those two?
     # this should be user ID
     def get(self, request, id):
         user = get_object_or_404(User, id=id)
@@ -109,7 +110,6 @@ class SpotifyActionHistory(APIView):
         spotify_id = request.data.get("spotify_id")
         action = request.data.get("action")
         search_type = request.data.get("type", SearchTypeEnum.TRACK)
-        print(f"Action: {action}")
         if action not in ActionEnum.values:
             return Response(
                 {"error": "Invalid action"},
