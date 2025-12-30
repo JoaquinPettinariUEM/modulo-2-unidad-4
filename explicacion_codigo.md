@@ -60,7 +60,7 @@ Cuando el servidor se inicia:
 
 Esta separación clara de responsabilidades hace que el código sea mantenible y fácil de extender.
 
---
+---
 
 ## 📚 Explicación de los Endpoints
 
