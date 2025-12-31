@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    # This route should be the same than the folder? so should be call "core"?
     path("api/", include("core.urls")),
     path("admin/", admin.site.urls),
 ]
