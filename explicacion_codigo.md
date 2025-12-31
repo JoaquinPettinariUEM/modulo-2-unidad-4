@@ -64,7 +64,7 @@ Esta separación clara de responsabilidades hace que el código sea mantenible y
 
 ## 📚 Explicación de los Endpoints
 
-### 👤 Endpoints de Usuarios (/users)
+### 👤 Endpoints de Usuarios (/api/users)
 
 Estos endpoints representan un CRUD sencillo, ideal para iniciar y mantener la identidad del usuario dentro de la plataforma.
 
@@ -92,7 +92,7 @@ Es un endpoint pensado para ser ágil, sin procesar información adicional.
 
 También podemos encontrar un GET con las búsquedas de un usuario (GET /spotify/search/{user_id})
 
-### ❤️ Endpoints de Acciones de Música (/spotify/action)
+### ❤️ Endpoints de Acciones de Música (/api/spotify/action)
 
 Estos permiten marcar elementos musicales como like o dislike.
 
